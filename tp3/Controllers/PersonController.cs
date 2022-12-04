@@ -27,7 +27,7 @@ namespace tp3.Controllers
             return View(res);
         }
 
-        public IActionResult View()
+        public IActionResult Search()
         {
             return View();
         }

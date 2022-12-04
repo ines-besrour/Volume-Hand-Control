@@ -9,22 +9,20 @@ namespace tp3.Models
         {
             SQLiteConnection conn = new SQLiteConnection(dbConfig);
             conn.Open();
-
             SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM personal_info", conn);
             SQLiteDataReader reader = cmd.ExecuteReader();
-
             List<Person> res = new List<Person>();
             while (reader.Read())
             {
-                Person tmp = new Person(reader.GetInt32(0));
-                tmp.firstName = reader.GetString(1);
-                tmp.lastName = reader.GetString(2);
-                tmp.email = reader.GetString(3);
-                tmp.dateBirth = reader.GetString(4);
-                tmp.image = reader.GetString(5);
-                tmp.country = reader.GetString(6);
+                Person person = new Person(reader.GetInt32(0));
+                person.firstName = reader.GetString(1);
+                person.lastName = reader.GetString(2);
+                person.email = reader.GetString(3);
+                person.dateBirth = reader.GetString(4);
+                person.image = reader.GetString(5);
+                person.country = reader.GetString(6);
 
-                res.Add(tmp);
+                res.Add(person);
             }
 
             conn.Close();
@@ -37,19 +35,18 @@ namespace tp3.Models
                 conn.Open();
                 SQLiteCommand cmd = new SQLiteCommand("SELECT * FROM personal_info where id=@id", conn);
                 cmd.Parameters.Add(new SQLiteParameter("@id", id));
-
                 SQLiteDataReader reader = cmd.ExecuteReader();
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    Person res = new Person(id);
-                    res.firstName = reader.GetString(1);
-                    res.lastName = reader.GetString(2);
-                    res.email = reader.GetString(3);
-                    res.dateBirth = reader.GetString(4);
-                    res.image = reader.GetString(5);
-                    res.country = reader.GetString(6);
-                    return res;
+                    Person person = new Person(id);
+                    person.firstName = reader.GetString(1);
+                    person.lastName = reader.GetString(2);
+                    person.email = reader.GetString(3);
+                    person.dateBirth = reader.GetString(4);
+                    person.image = reader.GetString(5);
+                    person.country = reader.GetString(6);
+                    return person;
                 }
             }
             return null;
